@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>作品集 · Portfolio</title>
+  <meta name="description" content="个人设计作品集">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=Noto+Sans+SC:wght@300;400;500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=14">
+</head>
+<body>
+
+  <!-- 背景纹理层 -->
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- 左上角液态金属四角星 -->
+  <a class="mascot" href="#" id="mascot" aria-label="首页">
+    <div class="mascot-star" aria-hidden="true">
+      <span class="star-flow"></span>
+      <span class="star-glare"></span>
+      <span class="star-spark"></span>
+    </div>
+    <div class="mascot-bubble" id="mascotBubble">Design with vision</div>
+  </a>
+
+  <!-- 顶部中央视图切换器 -->
+  <nav class="view-switch" id="viewSwitch" aria-label="视图切换">
+    <button class="vs-btn active" data-view="spiral">spiral</button>
+    <span class="vs-dot">•</span>
+    <button class="vs-btn" data-view="list">list</button>
+  </nav>
+
+  <!-- 右上角菜单按钮 -->
+  <button class="menu-btn" id="menuBtn">
+    menu <span class="menu-arrow">▾</span>
+  </button>
+
+  <!-- 右侧抽屉菜单 -->
+  <div class="drawer-mask" id="drawerMask"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="drawer-title">XU. VISION · Portfolio</span>
+      <button class="drawer-close" id="drawerClose">
+        close <span class="close-x">✕</span>
+      </button>
+    </div>
+    <nav class="drawer-nav">
+      <span class="drawer-dot" id="drawerDot"></span>
+      <a class="drawer-link active" data-target="works">works</a>
+      <a class="drawer-link" data-target="about">about</a>
+      <a class="drawer-link" data-target="contact">contact</a>
+    </nav>
+    <div class="drawer-foot">
+      <a class="drawer-email" href="#">XU.VISION</a>
+      <div class="drawer-socials">
+        <a class="social-ico" href="#" title="Behance">Be</a>
+        <a class="social-ico" href="#" title="抖音">♪</a>
+        <a class="social-ico" href="#" title="微信">✦</a>
+        <a class="social-ico" href="#" title="Twitter">𝕏</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主舞台 -->
+  <main class="stage" id="stage">
+    <!-- spiral 视图：三环 3D 卡片（中央轨道环 + 上下循环带，由 JS 渲染） -->
+    <div class="scene spiral-scene" id="spiralScene"></div>
+
+    <!-- list 视图：左对齐文字列表 -->
+    <div class="list-view" id="listView">
+      <div class="list-container">
+        <div class="all-works-toolbar"><span class="list-header">全部作品</span><button class="all-works-back" id="allWorksBack">← Back</button></div>
+        <div class="list-stack" id="listStack"></div>
+        <div class="list-view-all-wrap">
+          <button class="list-view-all-btn" id="listViewAllBtn">
+            <span>查看全部</span>
+            <i>↓</i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- showcase 视图：弧形轮播 + 下滑详情 -->
+    <div class="showcase-view" id="showcaseView">
+      <!-- 弧形轮播区 -->
+      <section class="showcase-carousel-section" id="showcaseCarouselSection">
+        <button class="showcase-close" id="showcaseClose">✕</button>
+        <div class="showcase-carousel" id="showcaseCarousel"></div>
+        <button class="showcase-nav showcase-prev" id="showcasePrev">‹</button>
+        <button class="showcase-nav showcase-next" id="showcaseNext">›</button>
+        <div class="showcase-info" id="showcaseInfo"></div>
+        <div class="showcase-scroll-hint">
+          <span>scroll for details</span>
+          <i>↓</i>
+        </div>
+      </section>
+      <!-- 下滑详情区 -->
+      <section class="showcase-details" id="showcaseDetails"></section>
+    </div>
+  </main>
+
+  <!-- 左下角弧形文字+装饰 -->
+  <div class="bottom-left" aria-hidden="true">
+    <svg class="arc-text" viewBox="0 0 260 260" width="200" height="200">
+      <defs>
+        <path id="arcPath" d="M 130,130 m -100,0 a 100,100 0 1,1 200,0 a 100,100 0 1,1 -200,0"></path>
+      </defs>
+      <text font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="3" fill="#888">
+        <textPath href="#arcPath" startOffset="0">
+          26 years have left of fun • 26 years have left of fun •
+        </textPath>
+      </text>
+    </svg>
+    <div class="hand-art">
+      <span class="hand finger-1"></span>
+      <span class="hand finger-2"></span>
+      <span class="hand finger-3"></span>
+    </div>
+  </div>
+
+  <!-- 右下角音频按钮 -->
+  <button class="audio-btn" id="audioBtn" aria-label="音频">
+    <span class="audio-icon">♪</span>
+  </button>
+
+  <!-- 作品介绍页：封面 + 一句话简介 + 查看作品详情入口 -->
+  <div class="intro-overlay" id="introOverlay" aria-hidden="true">
+    <button class="intro-close" id="introClose">✕</button>
+    <button class="intro-arrow intro-prev" id="introPrev" aria-label="上一个作品">‹</button>
+    <button class="intro-arrow intro-next" id="introNext" aria-label="下一个作品">›</button>
+    <div class="intro-page" id="introPage"></div>
+  </div>
+
+  <!-- 作品全览页：顶部自动轮播 + 下方完整内容 -->
+  <div class="detail-overlay" id="detailOverlay" aria-hidden="true">
+    <button class="detail-close" id="detailClose">✕</button>
+    <div class="detail-page" id="detailCard"></div>
+  </div>
+
+  <!-- list 视图：悬停标题时的封面预览（跟随光标） -->
+  <div class="aw-preview" id="awPreview" aria-hidden="true"><div class="aw-preview-inner" id="awPreviewInner"></div></div>
+
+  <!-- 图片放大查看 lightbox -->
+  <div class="lb-overlay" id="lightbox" aria-hidden="true">
+    <button class="lb-close" id="lbClose">✕</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="上一张">‹</button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="下一张">›</button>
+    <figure class="lb-figure"><img id="lbImg" alt=""></figure>
+    <div class="lb-caption"><span id="lbTitle"></span><span id="lbCounter"></span></div>
+  </div>
+
+  <!-- About 面板 -->
+  <div class="info-overlay" id="aboutOverlay" aria-hidden="true">
+    <button class="info-close" id="aboutClose">✕</button>
+    <div class="info-panel">
+      <span class="info-label">about</span>
+      <h2 class="info-title">XU. VISION</h2>
+      <p class="info-desc">设计师 / 视觉创作者，专注于品牌视觉系统、UI 界面设计与空间美陈方案。以「Design with vision」为理念，探索东方美学与数字未来的交汇。</p>
+      <div class="info-tags">
+        <span class="info-tag">品牌设计</span>
+        <span class="info-tag">UI / UX</span>
+        <span class="info-tag">空间设计</span>
+        <span class="info-tag">视觉系统</span>
+        <span class="info-tag">包装设计</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact 面板 -->
+  <div class="info-overlay" id="contactOverlay" aria-hidden="true">
+    <button class="info-close" id="contactClose">✕</button>
+    <div class="info-panel">
+      <span class="info-label">contact</span>
+      <h2 class="info-title">let's talk</h2>
+      <a class="info-email" href="#">XU.VISION</a>
+      <div class="info-socials">
+        <a class="social-ico" href="#" title="Behance">Be</a>
+        <a class="social-ico" href="#" title="抖音">♪</a>
+        <a class="social-ico" href="#" title="微信">✦</a>
+        <a class="social-ico" href="#" title="Twitter">𝕏</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/works-data.js?v=8"></script>
+  <script src="js/main.js?v=16"></script>
+</body>
+</html>
